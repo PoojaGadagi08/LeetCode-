@@ -26,7 +26,7 @@ class Tuple{
 }
 class Solution {
     int n,m;
-#This function marks any one component as visited by marking it to 2
+//This function marks any one component as visited by marking it to 2
     public void bfs(int[][] grid,int r,int c, PriorityQueue<Tuple> pq,PriorityQueue<Tuple> pq1)
     {
         int[] del_row={0,1,0,-1};

@@ -37,3 +37,34 @@ roads[i].length == 2
 0 <= ai, bi <= n-1
 ai != bi
 Each pair of cities has at most one road connecting them.
+
+
+
+ class Solution {
+    public int maximalNetworkRank(int n, int[][] roads) {
+    
+    int[] counts = new int[n];
+    boolean[][] connected = new boolean[n][n];
+    
+    for( int[] r : roads ) {
+        counts[r[0]]++;
+        counts[r[1]]++;
+        
+        connected[r[0]][r[1]] = true;
+        connected[r[1]][r[0]] = true;
+        
+    }
+    
+    int max = 0;
+    
+    for( int i = 0; i < n; i++ ){
+        for( int j = i+1; j < n; j++ ){
+            int c = counts[i] + counts[j] - (connected[i][j] ? 1 : 0);
+            max = Math.max(max, c);
+        }
+    }
+    
+    return max;
+}
+
+}

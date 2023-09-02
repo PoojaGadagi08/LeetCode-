@@ -27,46 +27,31 @@ dictionary contains distinct words
 
 
 
-  class Solution {
-    public int minExtraChar(String s, String[] d) {
-//         Stack <Character> ans=new Stack<>();
-//        int c=0;
-        
-//         for(int i=0;i<s.length();i++){
-//             for(int j=0;j<d.length;j++){
-//                 if(s.charAt(i)!=(d[j].charAt(j))){
-//                    ans.push(s.charAt(i));
-//                 }
-//             }
-//         }
-//          return ans.size()-21;
-        
-        
-        int l=s.length();
-        int l=le=d.length;
-        
-        int dp[]=new int[le+1];
-        
-        HashSet<String > h=new HashSet<>();
-        for(int i=0;i<le;i++)
-            j.add(d[i]);
-        
-        for(int i=l-1;i>=0;i--){
-            String ste="";
-            
-            int m=dp[i+1];
-            for(int j=1;j<l;j++){
-                ste=ste+s.charAt(j)+"";
-                
-                if(h.contains(str)){
-                    int e=astr.length();
-                    e+=dp[j+1];
-                    if(e>m)
-                        m=e;
+import java.util.Arrays;
+
+class Solution {
+    private int[] dp = new int[51]; // Initialize dp array with 0 values
+
+    public int minExtraChar(String s, String[] dictionary) {
+        Arrays.fill(dp, -1); // Initialize dp array with -1 values
+        return minExtraCharHelper(s, dictionary, 0);
+    }
+
+    private int minExtraCharHelper(String s, String[] dictionary, int i) {
+        if (i == s.length()) {
+            return 0;
+        }
+
+        if (dp[i] == -1) {
+            dp[i] = 1 + minExtraCharHelper(s, dictionary, i + 1); // Initialize with one extra character
+
+            for (String w : dictionary) {
+                if (i + w.length() <= s.length() && s.substring(i, i + w.length()).equals(w)) {
+                    dp[i] = Math.min(dp[i], minExtraCharHelper(s, dictionary, i + w.length())); // Update if a word in the dictionary is found
                 }
             }
-            dp[i]=m;
         }
-        return l-dp[0];
+
+        return dp[i]; // Return the minimum extra characters starting from position i
     }
 }
